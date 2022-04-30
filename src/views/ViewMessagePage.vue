@@ -52,6 +52,8 @@ import { Device } from '@capacitor/device';
 import { App } from '@capacitor/app';
 import { Dialog } from '@capacitor/dialog';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { Storage } from '@capacitor/storage';
+import { Circle } from 'capacitor-plugin-hanwha'
 
 export default defineComponent({
   name: 'ViewMessagePage',
@@ -66,6 +68,7 @@ export default defineComponent({
       }
     }
   },
+  
   methods: {
     func(message: Message) {
       switch(message.id) {
@@ -78,6 +81,7 @@ export default defineComponent({
         case 6: this.getAppInfo(); break;
         case 7: this.takeDialog(); break;
         case 8: this.setHaptics(); break;
+        case 9: this.getStorage(); break;
       }
     },
 
@@ -157,6 +161,20 @@ export default defineComponent({
 
     async setHaptics() {
       await Haptics.impact({ style: ImpactStyle.Heavy });
+    },
+
+    async getStorage() {
+
+      Circle.echo({value: "shared_resource_key"}).then((e: any) => {
+        alert(e.value)
+      })
+
+      // await Storage.configure({group:"group.hanwha.mgr.app"})
+      
+
+      // const { value } = await Storage.get({ key: 'shared_resource_key' });
+
+      // alert(`shared_resource_key : ${value}`)
     }
 
   },

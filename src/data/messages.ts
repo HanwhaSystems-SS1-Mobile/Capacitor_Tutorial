@@ -82,6 +82,20 @@ const messages: Message[] = [
     link: 'https://capacitorjs.com/docs/apis/haptics',
     date: 'Last Week',
     id: 8
+  },
+  {
+    fromName: 'Storage',
+    subject: `torage API는 경량 데이터를 위한 간단한 키/값 영구 저장소를 제공합니다.
+
+    모바일 OS는 주기적으로 의 데이터 세트를 지울 수 window.localStorage있으므로 이 API를 대신 사용해야 합니다. 이 API는 localStorage 프로그레시브 웹 앱으로 실행할 때 사용하도록 대체됩니다.
+    
+    이 플러그인은 UserDefaults iOS 및 SharedPreferences 안드로이드에서. 앱을 제거하면 저장된 데이터가 삭제됩니다.
+    
+    참고 : 이 API는 로컬 데이터베이스로 사용하기 위한 것이 아닙니다 . 앱이 많은 데이터를 저장하거나 읽기/쓰기 로드가 높거나 복잡한 쿼리가 필요한 경우 SQLite 기반 솔루션을 살펴보는 것이 좋습니다. 그러한 솔루션 중 하나는아이오닉 보안 스토리지, 완전한 암호화를 지원하는 SQLite 기반 엔진. 그만큼커패시터 커뮤니티또한 다수의 다른 스토리지 엔진을 구축했습니다.`,
+    contents: 'npm install @capacitor/storage',
+    link: 'https://capacitorjs.com/docs/apis/storage',
+    date: 'Last Week',
+    id: 9
   }
 ];
 
