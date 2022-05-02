@@ -29,8 +29,11 @@
         <p>
          {{message.contents}}
         </p>
-        <ion-button color="tertiary" v-on:click="func(message)">실행</ion-button>
+        <ion-button color="tertiary" v-if="isShowBtn" v-on:click="func(message)">실행</ion-button>
+        <ion-input v-if="isShowInput"  placeholder="입력창"></ion-input>
         <ion-img :src="img"></ion-img>
+        <pre><code>{{code}}</code></pre>
+        <br/>
       </div>
 
     </ion-content>
@@ -39,7 +42,7 @@
 
 <script lang="ts">
 import { useRoute } from 'vue-router';
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonNote, IonPage, IonToolbar } from '@ionic/vue';
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonNote, IonPage, IonToolbar } from '@ionic/vue';
 import { logoTux } from 'ionicons/icons';
 import { getMessage, Message } from '../data/messages';
 import { defineComponent } from 'vue';
@@ -53,13 +56,22 @@ import { App } from '@capacitor/app';
 import { Dialog } from '@capacitor/dialog';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { Storage } from '@capacitor/storage';
-import { Circle } from 'capacitor-plugin-hanwha'
+import { Circle } from 'capacitor-plugin-hanwha';
+import { Keyboard } from '@capacitor/keyboard';
+import { Toast } from '@capacitor/toast';
+import { Network } from '@capacitor/network';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { PushNotifications } from '@capacitor/push-notifications';
 
 export default defineComponent({
   name: 'ViewMessagePage',
   data() {
     return {
       img: "",
+      isShowBtn: true,
+      isShowInput: true,
+      code: "",
       logoTux,
       getBackButtonText: () => {
        // const win = window as any;
@@ -67,6 +79,59 @@ export default defineComponent({
         return 'Tutorial';
       }
     }
+  },
+
+  created() {
+
+    // 키보드를 위한 input 활성화 여부
+    if(this.message.id === 10) {
+      this.isShowInput = true
+      this.isShowBtn = false
+    } else {
+      this.isShowInput = false
+      this.isShowBtn = true
+    }
+
+  },
+
+  async mounted() {
+
+    // 키보드 이벤트 리스너 등록
+    Keyboard.addListener('keyboardDidShow', async info => {
+      await Toast.show({
+        text: `keyboard did show (hight:${info.keyboardHeight})`
+      });
+    });
+
+    Keyboard.addListener('keyboardDidHide', async () => {
+      await Toast.show({
+        text: 'keyboard did hide'
+      });
+    });
+
+    await PushNotifications.addListener('registration', token => {
+      alert(token.value)
+      console.info('Registration token: ', token.value);
+    });
+
+    await PushNotifications.addListener('registrationError', err => {
+      alert( err.error)
+      console.error('Registration error: ', err.error);
+    });
+
+    await PushNotifications.addListener('pushNotificationReceived', notification => {
+      console.log('Push notification received: ', notification);
+    });
+
+    await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
+      const {notification:{data:{aps:{alert:{body}}}}}= notification
+      alert(body)
+    });
+  },
+  beforeUnmount() {
+      // 모든 키보드 리스너 제거 (mounted 될 때마다 중복되서 선언되면 안되기 때문)
+      Keyboard.removeAllListeners()
+      PushNotifications.removeAllListeners()
   },
   
   methods: {
@@ -80,8 +145,13 @@ export default defineComponent({
         case 5: this.getDeviceInfo(); break;
         case 6: this.getAppInfo(); break;
         case 7: this.takeDialog(); break;
-        case 8: this.setHaptics(); break;
+        case 8: this.settingHaptics(); break;
         case 9: this.getStorage(); break;
+        case 11: this.showToast(); break;
+        case 12: this.getNetworkStatus(); break;
+        case 13: this.settingSplash(); break;
+        case 14: this.settingStatusBar(); break;
+        case 15: this.settingPushNotification(); break;
       }
     },
 
@@ -159,24 +229,47 @@ export default defineComponent({
       alert(`Confirmed: ${value}`);
     },
 
-    async setHaptics() {
+    async settingHaptics() {
       await Haptics.impact({ style: ImpactStyle.Heavy });
     },
 
     async getStorage() {
+      const {results} = await Circle.getSharedPreference({key: "shared_resource_key", defaultValue:""})
+      this.code = results
+    },
 
-      Circle.echo({value: "shared_resource_key"}).then((e: any) => {
-        alert(e.value)
-      })
+    async showToast() {
+      await Toast.show({
+        text: 'Hello!',
+        position: "center"
+      });
+    },
 
-      // await Storage.configure({group:"group.hanwha.mgr.app"})
-      
+    async getNetworkStatus() {
+      const status = await Network.getStatus();
+      alert(`Network status: ${JSON.stringify(status)}`);
+    },
 
-      // const { value } = await Storage.get({ key: 'shared_resource_key' });
+    async settingSplash() {
+      await SplashScreen.show({
+        showDuration: 2000,
+        autoHide: true
+      });
+    },
+    
+    async settingStatusBar() {
+      const status =  (await StatusBar.getInfo()).visible
+      if(status === true) {
+        await StatusBar.hide();
+      } else {
+        await StatusBar.show();
+      }
+    },
 
-      // alert(`shared_resource_key : ${value}`)
+    async settingPushNotification() {
+      await PushNotifications.requestPermissions()
     }
-
+    
   },
   setup() {
     const route = useRoute();
@@ -196,7 +289,8 @@ export default defineComponent({
     IonLabel,
     IonNote,
     IonPage,
-    IonToolbar
+    IonToolbar,
+    IonInput
   }
 });
 </script>

@@ -96,9 +96,56 @@ const messages: Message[] = [
     link: 'https://capacitorjs.com/docs/apis/storage',
     date: 'Last Week',
     id: 9
+  },
+  {
+    fromName: 'Keyboard',
+    subject: `Keyboard API는 키보드 표시 및 가시성 제어, 키보드 표시 및 숨김 이벤트 추적을 제공합니다.`,
+    contents: 'npm install @capacitor/keyboard',
+    link: 'https://capacitorjs.com/docs/apis/keyboard',
+    date: 'Last Week',
+    id: 10
+  },
+  {
+    fromName: 'Toast',
+    subject: `Toast API는 사용자에게 중요한 정보를 표시하기 위한 알림 팝업을 제공합니다. 진짜 토스트처럼!`,
+    contents: 'npm install @capacitor/toast',
+    link: 'https://capacitorjs.com/docs/apis/toast#capacitortoast',
+    date: 'Last Week',
+    id: 11
+  },
+  {
+    fromName: 'Network',
+    subject: `네트워크 API는 네트워크 및 연결 정보를 제공합니다.`,
+    contents: 'npm install @capacitor/network',
+    link: 'https://capacitorjs.com/docs/apis/network',
+    date: 'Last Week',
+    id: 12
+  },
+  {
+    fromName: 'SplashScreen',
+    subject: `스플래시 화면 API는 스플래시 이미지를 표시하거나 숨기는 메소드를 제공합니다.`,
+    contents: 'npm install @capacitor/splash-screen',
+    link: 'https://capacitorjs.com/docs/apis/splash-screen',
+    date: 'Last Week',
+    id: 13
+  },
+  {
+    fromName: 'StatusBar',
+    subject: `StatusBar API 표시 또는 숨기기와 함께 상태 표시줄의 스타일을 구성하는 메서드를 제공합니다.`,
+    contents: 'npm install @capacitor/status-bar',
+    link: 'https://capacitorjs.com/docs/apis/status-bar',
+    date: 'Last Week',
+    id: 14
+  },
+  {
+    fromName: 'Push Notification',
+    subject: `푸시 알림 API는 기본 푸시 알림에 대한 액세스를 제공합니다.`,
+    contents: 'npm install @capacitor/push-notifications',
+    link: 'https://capacitorjs.com/docs/apis/push-notifications',
+    date: 'Last Week',
+    id: 15
   }
 ];
 
 export const getMessages = () => messages;
-
 export const getMessage = (id: number) => messages.find(m => m.id === id);
