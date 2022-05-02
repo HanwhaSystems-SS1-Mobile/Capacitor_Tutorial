@@ -18,7 +18,6 @@ ionic serve
 
 device
 ```bash
-ionic serve
 npx cap run ios
 npx cap run android
 ```
