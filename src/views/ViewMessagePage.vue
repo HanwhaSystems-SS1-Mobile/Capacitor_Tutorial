@@ -55,8 +55,7 @@ import { Device } from '@capacitor/device';
 import { App } from '@capacitor/app';
 import { Dialog } from '@capacitor/dialog';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
-import { Storage } from '@capacitor/storage';
-import { Circle } from 'capacitor-plugin-hanwha';
+import { SharedPreference } from 'capacitor-plugin-hanwha-sharedpreference';
 import { Keyboard } from '@capacitor/keyboard';
 import { Toast } from '@capacitor/toast';
 import { Network } from '@capacitor/network';
@@ -177,6 +176,7 @@ export default defineComponent({
           }
         ]
       });
+      console.log("hi")
       alert(`선택값 ${JSON.stringify(result.index)}`);
     },
 
@@ -234,8 +234,10 @@ export default defineComponent({
     },
 
     async getStorage() {
-      const {results} = await Circle.getSharedPreference({key: "shared_resource_key", defaultValue:""})
-      this.code = results
+      
+
+      const {results} = await SharedPreference.get({key: "shared_resource_key", defaultValue:""})
+      
     },
 
     async showToast() {

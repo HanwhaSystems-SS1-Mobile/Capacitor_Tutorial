@@ -25,11 +25,12 @@ def capacitor_pods
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapacitorStorage', :path => '../../node_modules/@capacitor/storage'
   pod 'CapacitorToast', :path => '../../node_modules/@capacitor/toast'
-  pod 'CapacitorPluginHanwha', :path => '../../../capacitor-plugin-hanwha'
+  pod 'CapacitorPluginHanwhaSharedpreference', :path => '../../node_modules/capacitor-plugin-hanwha-sharedpreference'
 end
 
 target 'App' do
   capacitor_pods
   pod 'Firebase/Messaging' # Add this line
+  
   # Add your Pods here
 end

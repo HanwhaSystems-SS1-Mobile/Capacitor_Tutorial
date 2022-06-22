@@ -17,7 +17,7 @@ const messages: Message[] = [
     id: 0
   },
   {
-    fromName: 'App Laucher',
+    fromName: 'App Launcher',
     subject: `AppLauncher API를 사용하면 앱이 앱을 열고 열 수 있는지 확인할 수 있습니다.
     iOS에서는 URL 구성표를 알고 있는 경우에만 앱을 열 수 있습니다.
     Android에서는 URL 구성표를 알고 있거나 공개 패키지 이름을 사용하는 경우 앱을 열 수 있습니다.
@@ -77,7 +77,7 @@ const messages: Message[] = [
   },
   {
     fromName: 'Haptics',
-    subject: 'Dialog API는 경고, 확인 및 입력 프롬프트에 대한 기본 대화 창을 트리거하는 방법을 제공합니다.',
+    subject: 'Haptics API는 터치나 진동을 통해 사용자에게 물리적 피드백을 제공합니다.',
     contents: 'npm install @capacitor/dialog',
     link: 'https://capacitorjs.com/docs/apis/haptics',
     date: 'Last Week',
@@ -85,7 +85,7 @@ const messages: Message[] = [
   },
   {
     fromName: 'Storage',
-    subject: `torage API는 경량 데이터를 위한 간단한 키/값 영구 저장소를 제공합니다.
+    subject: `Storage API는 경량 데이터를 위한 간단한 키/값 영구 저장소를 제공합니다.
 
     모바일 OS는 주기적으로 의 데이터 세트를 지울 수 window.localStorage있으므로 이 API를 대신 사용해야 합니다. 이 API는 localStorage 프로그레시브 웹 앱으로 실행할 때 사용하도록 대체됩니다.
     

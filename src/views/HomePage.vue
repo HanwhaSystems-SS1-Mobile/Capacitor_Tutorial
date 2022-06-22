@@ -29,6 +29,7 @@ import { IonContent, IonHeader, IonList, IonPage, IonRefresher, IonRefresherCont
 import MessageListItem from '@/components/MessageListItem.vue';
 import { defineComponent } from 'vue';
 import { getMessages } from '@/data/messages';
+import HomeViewModel from '../viewModel/HomeViewModel'
 
 export default defineComponent({
   name: 'HomePage',
@@ -43,6 +44,17 @@ export default defineComponent({
         ev.detail.complete();
       }, 3000);
     }
+  },
+  created() {
+    let viewModel = new HomeViewModel()
+    viewModel.requestPmCheck()
+
+    viewModel.obUserGroupInfo
+      .subscribe({
+        next: async (result) => {
+          console.log(result)
+        }
+      })
   },
   components: {
     IonContent,
