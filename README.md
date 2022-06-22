@@ -24,7 +24,7 @@ npx cap run android
 
 ## Code 
 
-사용하고자 하는 기능은 ViewMessagePage.vue 파일 참고
+사용하고자 하는 기능은 `ViewMessagePage.vue` 파일 참고
 
 - `showActions()`: 액션 시트 API는 기본 액션 시트에 대한 액세스를 제공하며, 이 액션 시트는 화면 하단에서 나타나며 사용자가 취할 수 있는 작업을 표시합니다.
 - `showOpenURL(link: string)`: iOS에서는 URL 구성표를 알고 있는 경우에만 앱을 열 수 있습니다. Android에서는 URL 구성표를 알고 있거나 공개 패키지 이름을 사용하는 경우 앱을 열 수 있습니다.
