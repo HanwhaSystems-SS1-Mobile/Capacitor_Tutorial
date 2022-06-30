@@ -25,7 +25,7 @@ dependencies {
     implementation project(':capacitor-status-bar')
     implementation project(':capacitor-storage')
     implementation project(':capacitor-toast')
-    implementation project(':capacitor-plugin-hanwha')
+    implementation project(':capacitor-plugin-hanwha-sharedpreference')
 
 }
 

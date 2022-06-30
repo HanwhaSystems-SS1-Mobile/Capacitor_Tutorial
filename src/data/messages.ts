@@ -98,12 +98,21 @@ const messages: Message[] = [
     id: 9
   },
   {
+    fromName: 'SharedPreference',
+    subject: `SharedPreference API는 암호화된 데이터를 공유합니다.
+    `,
+    contents: 'npm install capacitor-plugin-hanwha-sharedpreference',
+    link: 'https://www.npmjs.com/package/capacitor-plugin-hanwha-sharedpreference',
+    date: 'Last Week',
+    id: 10
+  },
+  {
     fromName: 'Keyboard',
     subject: `Keyboard API는 키보드 표시 및 가시성 제어, 키보드 표시 및 숨김 이벤트 추적을 제공합니다.`,
     contents: 'npm install @capacitor/keyboard',
     link: 'https://capacitorjs.com/docs/apis/keyboard',
     date: 'Last Week',
-    id: 10
+    id: 11
   },
   {
     fromName: 'Toast',
@@ -111,7 +120,7 @@ const messages: Message[] = [
     contents: 'npm install @capacitor/toast',
     link: 'https://capacitorjs.com/docs/apis/toast#capacitortoast',
     date: 'Last Week',
-    id: 11
+    id: 12
   },
   {
     fromName: 'Network',
@@ -119,7 +128,7 @@ const messages: Message[] = [
     contents: 'npm install @capacitor/network',
     link: 'https://capacitorjs.com/docs/apis/network',
     date: 'Last Week',
-    id: 12
+    id: 13
   },
   {
     fromName: 'SplashScreen',
@@ -127,7 +136,7 @@ const messages: Message[] = [
     contents: 'npm install @capacitor/splash-screen',
     link: 'https://capacitorjs.com/docs/apis/splash-screen',
     date: 'Last Week',
-    id: 13
+    id: 14
   },
   {
     fromName: 'StatusBar',
@@ -135,7 +144,7 @@ const messages: Message[] = [
     contents: 'npm install @capacitor/status-bar',
     link: 'https://capacitorjs.com/docs/apis/status-bar',
     date: 'Last Week',
-    id: 14
+    id: 15
   },
   {
     fromName: 'Push Notification',
@@ -143,7 +152,7 @@ const messages: Message[] = [
     contents: 'npm install @capacitor/push-notifications',
     link: 'https://capacitorjs.com/docs/apis/push-notifications',
     date: 'Last Week',
-    id: 15
+    id: 16
   }
 ];
 

@@ -83,7 +83,7 @@ export default defineComponent({
   created() {
 
     // 키보드를 위한 input 활성화 여부
-    if(this.message.id === 10) {
+    if(this.message.id === 11) {
       this.isShowInput = true
       this.isShowBtn = false
     } else {
@@ -146,11 +146,12 @@ export default defineComponent({
         case 7: this.takeDialog(); break;
         case 8: this.settingHaptics(); break;
         case 9: this.getStorage(); break;
-        case 11: this.showToast(); break;
-        case 12: this.getNetworkStatus(); break;
-        case 13: this.settingSplash(); break;
-        case 14: this.settingStatusBar(); break;
-        case 15: this.settingPushNotification(); break;
+        case 10: this.getSharedPreference(); break;
+        case 12: this.showToast(); break;
+        case 13: this.getNetworkStatus(); break;
+        case 14: this.settingSplash(); break;
+        case 15: this.settingStatusBar(); break;
+        case 16: this.settingPushNotification(); break;
       }
     },
 
@@ -234,10 +235,18 @@ export default defineComponent({
     },
 
     async getStorage() {
-      
+     // SharedPreference.configuration({ appgroup:"group.hanwha.mgr.app", iv:""})     
 
-      const {results} = await SharedPreference.get({key: "shared_resource_key", defaultValue:""})
+      const { results } = await SharedPreference.get({ key: "authtoken", default: "11", encrypt: true })
+      alert(JSON.stringify(results))
       
+    },
+
+    async getSharedPreference() {
+      SharedPreference.configuration({appgroup:"group.hanwha.mgr.app", iv:""})
+      const { results } = await SharedPreference.get({ key: "currentUserInfo", default: "11", encrypt: true })
+      alert(JSON.stringify(JSON.parse(results)))
+
     },
 
     async showToast() {

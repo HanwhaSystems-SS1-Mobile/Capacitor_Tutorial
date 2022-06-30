@@ -64,7 +64,7 @@
 		"classpath": "com.capacitorjs.plugins.toast.ToastPlugin"
 	},
 	{
-		"pkg": "capacitor-plugin-hanwha",
-		"classpath": "group.hanwha.mgr.app.CirclePlugin"
+		"pkg": "capacitor-plugin-hanwha-sharedpreference",
+		"classpath": "group.hanwha.mgr.app.SharedPreferencePlugin"
 	}
 ]

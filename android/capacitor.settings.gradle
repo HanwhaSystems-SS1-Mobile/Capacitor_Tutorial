@@ -50,5 +50,5 @@ project(':capacitor-storage').projectDir = new File('../node_modules/@capacitor/
 include ':capacitor-toast'
 project(':capacitor-toast').projectDir = new File('../node_modules/@capacitor/toast/android')
 
-include ':capacitor-plugin-hanwha'
-project(':capacitor-plugin-hanwha').projectDir = new File('../../capacitor-plugin-hanwha/android')
+include ':capacitor-plugin-hanwha-sharedpreference'
+project(':capacitor-plugin-hanwha-sharedpreference').projectDir = new File('../../capacitor-plugin-hanwha-sharedpreference/android')
