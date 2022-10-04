@@ -33,8 +33,8 @@
         <ion-input v-if="isShowInput"  placeholder="입력창"></ion-input>
         <ion-img :src="img"></ion-img>
         <pre><code>{{code}}</code></pre>
-        <br/>
       </div>
+
 
     </ion-content>
   </ion-page>
@@ -49,7 +49,7 @@ import { defineComponent } from 'vue';
 import { ActionSheet, ActionSheetButtonStyle } from '@capacitor/action-sheet';
 import { AppLauncher } from '@capacitor/app-launcher';
 import { Browser } from '@capacitor/browser';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Clipboard } from '@capacitor/clipboard';
 import { Device } from '@capacitor/device';
 import { App } from '@capacitor/app';
@@ -62,6 +62,7 @@ import { Network } from '@capacitor/network';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { FilePicker, FilePickerResult } from "capacitor-file-picker";
 
 export default defineComponent({
   name: 'ViewMessagePage',
@@ -161,24 +162,18 @@ export default defineComponent({
      * @description Action Sheet Plugin
      */
     async showActions() {
-      const result = await ActionSheet.showActions({
-        title: 'Photo Options',
-        message: 'Select an option to perform',
-        options: [
-          {
-            title: 'Upload'
-          },
-          {
-            title: 'Share'
-          },
-          {
-            title: 'Remove',
-            style: ActionSheetButtonStyle.Destructive
-          }
-        ]
-      });
-      console.log("hi")
-      alert(`선택값 ${JSON.stringify(result.index)}`);
+      let url = "test://"
+      try {
+        window.location.href = url;
+    } catch (e) {
+      alert(e)
+        //document.location = fallback;
+        return;
+    }
+
+   
+
+   
     },
 
     async showOpenURL(link: string) {
@@ -190,14 +185,72 @@ export default defineComponent({
     },
 
     async takePicture() {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
-      });
 
-      // 카메라 바로 호출을 원할 때는  "source: CameraSource.Camera" 를 입력하여, 바로 source를 선언해준다
-      this.img = image.webPath;
+      
+        const result = await ActionSheet.showActions({
+          title: '',
+          message: '',
+          options: [
+            {
+              title: '갤러리선택'
+            },
+            {
+              title: '파일선택'
+            },
+            {
+              title: '사진촬영'
+            },
+            {
+              title: '취소',
+              style: ActionSheetButtonStyle.Destructive
+            }
+          ]
+        });
+
+      const { index } = result
+
+
+      switch (index) {
+        case 0: {
+          const image = await Camera.getPhoto({
+            quality: 90,
+            allowEditing: true,
+            resultType: CameraResultType.Uri,
+            source: CameraSource.Photos
+          })
+          this.img = image.webPath;
+        } break
+        case 1: {
+          FilePicker.showFilePicker({
+            fileTypes: ["image/*", "application/pdf", "application/json", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
+          }).then(
+            (fileResult: FilePickerResult) => {
+              const fileUri = fileResult.uri;
+              const fileName = fileResult.name;
+              const fileMimeType = fileResult.mimeType;
+              const fileExtension = fileResult.extension;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        } break
+        case 2: {
+          const image = await Camera.getPhoto({
+            quality: 90,
+            allowEditing: true,
+            resultType: CameraResultType.Uri,
+            source: CameraSource.Camera
+          });
+          this.img = image.webPath;
+        } break
+
+        default: break
+      }
+
+  
+      // // 카메라 바로 호출을 원할 때는  "source: CameraSource.Camera" 를 입력하여, 바로 source를 선언해준다
+      // 
     },
 
     async takeClipboard() {
@@ -237,14 +290,18 @@ export default defineComponent({
     async getStorage() {
      // SharedPreference.configuration({ appgroup:"group.hanwha.mgr.app", iv:""})     
 
-      const { results } = await SharedPreference.get({ key: "authtoken", default: "11", encrypt: true })
-      alert(JSON.stringify(results))
+      // const { results } = await SharedPreference.get({ key: "authtoken", default: "11", encrypt: true })
+      // alert(JSON.stringify(results))
       
     },
 
     async getSharedPreference() {
-      SharedPreference.configuration({appgroup:"group.hanwha.mgr.app", iv:""})
-      const { results } = await SharedPreference.get({ key: "currentUserInfo", default: "11", encrypt: true })
+      //SharedPreference.configuration({appgroup:"group.hanwha.mgr.app", iv:""})
+
+      // let { results } = await SharedPreference.set({ key: "currentUserInfo2", value: "11", encrypt: true })
+      // alert(JSON.stringify(JSON.parse(results)))
+
+      const { results } = await SharedPreference.get({ key: "currentUserInfo", default: "12", encrypt: true })
       alert(JSON.stringify(JSON.parse(results)))
 
     },
