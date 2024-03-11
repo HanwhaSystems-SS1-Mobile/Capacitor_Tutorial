@@ -33,7 +33,7 @@
     "@ionic/vue-router": "^6.0.0",
     "axios": "0.27.2",
     "capacitor-file-picker": "1.0.10",
-    "capacitor-plugin-hanwha-sharedpreference": "/Users/hanwhalee/Document2/WorkSpace/Hanwha/Vue/capacitor-plugin-hanwha-sharedpreference",
+    "@hanwha-ss1/plugin": "/Users/lee/Workspace/Hanwha/Cleverse/capacitor-hanwha-plugin/packages/Plugin",
     "core-js": "^3.6.5",
     "custom-protocol-check": "1.3.0",
     "vue": "^3.2.21",

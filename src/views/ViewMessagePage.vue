@@ -55,15 +55,12 @@ import { Device } from '@capacitor/device';
 import { App } from '@capacitor/app';
 import { Dialog } from '@capacitor/dialog';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
-import { SharedPreference } from 'capacitor-plugin-hanwha-sharedpreference';
-import { Keyboard } from '@capacitor/keyboard';
 import { Toast } from '@capacitor/toast';
 import { Network } from '@capacitor/network';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
-import { PushNotifications } from '@capacitor/push-notifications';
 import { FilePicker, FilePickerResult } from "capacitor-file-picker";
-
+import {HanwhaPlugin} from "../../../capacitor-hanwha-plugin/packages/Plugin/src";
 export default defineComponent({
   name: 'ViewMessagePage',
   data() {
@@ -95,43 +92,12 @@ export default defineComponent({
   },
 
   async mounted() {
-
-    // 키보드 이벤트 리스너 등록
-    Keyboard.addListener('keyboardDidShow', async info => {
-      await Toast.show({
-        text: `keyboard did show (hight:${info.keyboardHeight})`
-      });
-    });
-
-    Keyboard.addListener('keyboardDidHide', async () => {
-      await Toast.show({
-        text: 'keyboard did hide'
-      });
-    });
-
-    await PushNotifications.addListener('registration', token => {
-      alert(token.value)
-      console.info('Registration token: ', token.value);
-    });
-
-    await PushNotifications.addListener('registrationError', err => {
-      alert( err.error)
-      console.error('Registration error: ', err.error);
-    });
-
-    await PushNotifications.addListener('pushNotificationReceived', notification => {
-      console.log('Push notification received: ', notification);
-    });
-
-    await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
-      const {notification:{data:{aps:{alert:{body}}}}}= notification
-      alert(body)
-    });
+    console.log("hi")
   },
   beforeUnmount() {
       // 모든 키보드 리스너 제거 (mounted 될 때마다 중복되서 선언되면 안되기 때문)
-      Keyboard.removeAllListeners()
-      PushNotifications.removeAllListeners()
+
+
   },
   
   methods: {
@@ -162,15 +128,7 @@ export default defineComponent({
      * @description Action Sheet Plugin
      */
     async showActions() {
-      let url = "test://"
-      try {
-        window.location.href = url;
-    } catch (e) {
-      alert(e)
-        //document.location = fallback;
-        return;
-    }
-
+      await HanwhaPlugin.auth();
    
 
    
@@ -296,21 +254,12 @@ export default defineComponent({
     },
 
     async getSharedPreference() {
-      //SharedPreference.configuration({appgroup:"group.hanwha.mgr.app", iv:""})
-
-      // let { results } = await SharedPreference.set({ key: "currentUserInfo2", value: "11", encrypt: true })
-      // alert(JSON.stringify(JSON.parse(results)))
-
-      const { results } = await SharedPreference.get({ key: "currentUserInfo", default: "12", encrypt: true })
-      alert(JSON.stringify(JSON.parse(results)))
+      alert('hi')
 
     },
 
     async showToast() {
-      await Toast.show({
-        text: 'Hello!',
-        position: "center"
-      });
+      alert('hi')
     },
 
     async getNetworkStatus() {
@@ -335,7 +284,7 @@ export default defineComponent({
     },
 
     async settingPushNotification() {
-      await PushNotifications.requestPermissions()
+      alert('hi')
     }
     
   },
